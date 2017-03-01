@@ -62,8 +62,6 @@ progs = open('progenitor.txt','r')
 for y in progs.read().split('\n'):
 	if y.isdigit():
 		progenitor.append(int(y))
-print "printing progenitor"
-print progenitor
 
 #### Redshift File
 red = open( "redshift.txt")
@@ -154,7 +152,7 @@ while nm < g:
 	y3 = map(float,y2)
 
 	r3 = map(float,r2)		
-	print len(r3), len(y3)
+	
 	e1 = np.multiply(0.3, y3)
 
 #### NON LINEAR REGRESSION PORTION OF THE PROGRAM
@@ -177,12 +175,6 @@ while nm < g:
 	chi_squared = chi_squared[0]
 	
 		
-	    
-  # Plot whatever you wish to plot
- 
-  # Done with the page
-  
- 	
 # Write the PDF document to the disk
 
 # Here the data is inserted into the data frame,halo_id[nm],dm_mass[nm],redshift[nm],descendants[nm],progenitor[nm],parenthalos[nm]]
