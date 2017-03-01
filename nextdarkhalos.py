@@ -74,7 +74,7 @@ snaps = get( sim['snapshots'] )
 
 #snap = get( snaps[-1]['url'] )
 snapnum = 134
-redshift = 	0.048523629981805906	
+redshift = 0.00952166696794476		
 scale_factor = 1.0 / (1+redshift) 
 little_h = 0.704    
 
@@ -126,7 +126,7 @@ while n < len(c):
 
 	
 	
-	url = "http://www.illustris-project.org/api/Illustris-2/snapshots/131/subhalos/" + str(id)
+	url = "http://www.illustris-project.org/api/Illustris-2/snapshots/134/subhalos/" + str(id)
 	
 	
 	sub = get(url) # get json response of subhalo properties
