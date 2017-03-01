@@ -76,12 +76,12 @@ parents = ([])
 dmhalomasses = ([])
 progenitors = ([])
 dark_mass_percent = ([])
-subs = get( snap['subhalos'], {'limit':220} )
+subs = get( snap['subhalos'], {'limit':1220} )
 
 #####  HERE WE SET THE NUMBER OF HALOS COUNTED
-subs = get( snap['subhalos'], {'limit':5, 'order_by':'-mass_dm'} )
+subs = get( snap['subhalos'], {'limit':750, 'order_by':'-mass_dm'} )
 
-c =  [ subs['results'][i]['id'] for i in range(5) ]
+c =  [ subs['results'][i]['id'] for i in range(750) ]
 
 print c
 def running_sum(a):
@@ -107,17 +107,17 @@ while n < len(c):
 	
 	print id
 	url = "http://www.illustris-project.org/api/Illustris-2/snapshots/135/subhalos/" + str(id)
-	print url
+	
 	
 	sub = get(url) # get json response of subhalo properties
 	saved_filename = get(url + "/cutout.hdf5",params) # get and save HDF5 cutout file
 	dmhalomass = sub['mass_dm']
 	total_mass = sub['mass']
 	mass_to_light = dmhalomass / total_mass
-	print mass_to_light
+	
 	parent = sub['parent']	
 	progenitor = sub['prog_sfid']	
-	print progenitor
+	
 	parents.insert(n,parent)
 	progenitors.insert(n,progenitor)
 	dmhalomasses.insert(n,dmhalomass)
@@ -138,7 +138,7 @@ while n < len(c):
 	pi = 3.14159265359
 	P_critical = 3 * H_squared / (8 * pi * G)
 	P_200 = P_critical * 200
-	print P_200
+	
 	# prepare dict to hold result arrays
 	fields = ['snap','id','mass_gas','mass','mass_dm','mass_bhs']
 	radialstarmass_density =([])
@@ -161,7 +161,7 @@ while n < len(c):
 		
 		rr2 = np.sqrt(dx**2 + dy**2 + dz**2)
 		rr2 *= scale_factor/little_h # ckpc/h -> physical kpc
-		print len(rr2)
+		
 		rrr2 = sorted(rr2)
 		darkmattermass_density = ([])
 		radial_distance2 = ([])
@@ -193,12 +193,12 @@ while n < len(c):
 		outer_radius2.pop(0)
 		
 		
-		print density
+		
 	for x in dark_mass_density:
 		if x > P_200:
 			dm_density.append(x)
 			
-	print "printing Hsquared"
+	
 	
 	total_dm_mass = list(running_sum(dark_matters))
 	del total_dm_mass[0]
@@ -230,13 +230,13 @@ while n < len(c):
 		return "%.8f" % values	
 	r2 = [formats(x) for x in r1]
 	
-	print len(y2),  len(r2)
+	
 	import csv
 	resultFile = open(filename,'wb')
 	resultFile1 = open(filename1,'wb')
 	resultFile2 = open(filename12,'wb')
 	wr = csv.writer(resultFile, dialect='excel')
-	print "now printing ************************************* writerows"
+	
 	wr.writerows(y2)
 	resultFile.close()
 	wr1 = csv.writer(resultFile1, dialect='excel')
@@ -249,24 +249,22 @@ while n < len(c):
 	wr2 = csv.writer(resultFile2, dialect='excel')
 	wr2.writerows(total_dm_masses)
 	resultFile2.close()
-	print len(outer_radius2)
+	
 	n = n + 1
 
 
-print "printing redshift"
-print redshift_string
+
 # Finally, after this iterative process has produced all the necessary textfiles,
 # produce a final text file containing the list of all the text files produced so that
 # the non linear regression program can receive this list and know which text files to
 # call when fitting the data.
-print "printing len of dmdensity"
-print len(dm_density)
+
 #print filename_list
 #print filename1_list
 parent = [int(x) for x in str(parent)]
 
 dmhalomass = [float(dmhalomass)]
-print parent,dmhalomass
+
 filename2 = "halos.txt"
 filename3 = "radii.txt"
 filename4 = "listofradii.txt"
@@ -333,19 +331,8 @@ for c in progenitors:
 	
 data.close()
 
-print "printing dmhalomass, and progenitor"
-print progenitors
-print dmhalomasses
-print parents
 
 data = open(filename9,"w")
-
-#for c in descendant:
-#	data.write("%s\n" % c)
-	
-#data.close()
-
-
 
 
 data = open(filename10,"w")
@@ -356,15 +343,12 @@ for c in halo_id :
 data.close()
 
 
-	
-
 data = open(filename11,"w")
 
 for c in redshift_string :
 	data.write("%s\n" % c)
 	
 data.close()
-
 
 
 data = open(filename13,"w")
