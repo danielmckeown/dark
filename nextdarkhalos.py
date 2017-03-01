@@ -6,12 +6,10 @@ progs = open('progenitor.txt','r')
 for y in progs.read().split('\n'):
 	if y.isdigit():
 		progenitor.append(int(y))
-print "printing progenitor"
-print progenitor
 
 
 c = progenitor 
-print c
+
 
 
 ###  Here I just do some basic initializations 
@@ -68,14 +66,14 @@ sim['snapshots']
 
 snaps = get( sim['snapshots'] )
 
-print len(snaps)
+
 
 #print snaps[-1]
 
 #### Get full meta data
 
 #snap = get( snaps[-1]['url'] )
-snapnum = 131
+snapnum = 134
 redshift = 	0.048523629981805906	
 scale_factor = 1.0 / (1+redshift) 
 little_h = 0.704    
@@ -106,7 +104,7 @@ dark_mass_percent = ([])
 
 #c =  [ subs['results'][i]['id'] for i in range(5) ]
 
-print c
+
 def running_sum(a):
   tot = 0
   for item in a:
@@ -118,7 +116,6 @@ params = {'dm':'Coordinates,SubfindDensity'}
 url_parents = ([])
 
 #c = [1]
-print len(c)
 n = 0
 
 while n < len(c):
@@ -128,19 +125,19 @@ while n < len(c):
 	id = c[n]
 
 	
-	print id
+	
 	url = "http://www.illustris-project.org/api/Illustris-2/snapshots/131/subhalos/" + str(id)
-	print url
+	
 	
 	sub = get(url) # get json response of subhalo properties
 	saved_filename = get(url + "/cutout.hdf5",params) # get and save HDF5 cutout file
 	dmhalomass = sub['mass_dm']
 	total_mass = sub['mass']
 	mass_to_light = dmhalomass / total_mass
-	print mass_to_light
+	
 	parent = sub['parent']	
 	progenitor = sub['prog_sfid']	
-	print progenitor
+	
 	parents.insert(n,parent)
 	progenitors.insert(n,progenitor)
 	dmhalomasses.insert(n,dmhalomass)
@@ -161,7 +158,7 @@ while n < len(c):
 	pi = 3.14159265359
 	P_critical = 3 * H_squared / (8 * pi * G)
 	P_200 = P_critical * 200
-	print P_200
+	
 	# prepare dict to hold result arrays
 	fields = ['snap','id','mass_gas','mass','mass_dm','mass_bhs']
 	radialstarmass_density =([])
@@ -172,8 +169,6 @@ while n < len(c):
 	
 	dark_percent = 100 * mass_to_light
 	dark_mass_percent.insert(n,dark_percent)
-
-
 
 	    
 	     # request the full subhalo details of the descendant by following the sublink URL
@@ -187,7 +182,7 @@ while n < len(c):
 		
 		rr2 = np.sqrt(dx**2 + dy**2 + dz**2)
 		rr2 *= scale_factor/little_h # ckpc/h -> physical kpc
-		print len(rr2)
+		
 		rrr2 = sorted(rr2)
 		darkmattermass_density = ([])
 		radial_distance2 = ([])
@@ -218,13 +213,9 @@ while n < len(c):
 		
 		outer_radius2.pop(0)
 		
-		
-		print density
 	for x in dark_mass_density:
 		if x > P_200:
 			dm_density.append(x)
-			
-	print "printing Hsquared"
 	
 	total_dm_mass = list(running_sum(dark_matters))
 	del total_dm_mass[0]
@@ -257,13 +248,12 @@ while n < len(c):
 		return "%.8f" % values	
 	r2 = [formats(x) for x in r1]
 	
-	print len(y2),  len(r2)
 	import csv
 	resultFile = open(filename,'wb')
 	resultFile1 = open(filename1,'wb')
 	resultFile2 = open(filename12,'wb')
 	wr = csv.writer(resultFile, dialect='excel')
-	print "now printing ************************************* writerows"
+	
 	wr.writerows(y2)
 	resultFile.close()
 	wr1 = csv.writer(resultFile1, dialect='excel')
@@ -276,7 +266,7 @@ while n < len(c):
 	wr2 = csv.writer(resultFile2, dialect='excel')
 	wr2.writerows(total_dm_masses)
 	resultFile2.close()
-	print len(outer_radius2)
+	
 	n = n + 1
 
 
@@ -286,14 +276,13 @@ while n < len(c):
 # produce a final text file containing the list of all the text files produced so that
 # the non linear regression program can receive this list and know which text files to
 # call when fitting the data.
-print "printing len of dmdensity"
-print len(dm_density)
+
 #print filename_list
 #print filename1_list
 parent = [int(x) for x in str(parent)]
 
 dmhalomass = [float(dmhalomass)]
-print parent,dmhalomass
+
 filename2 = "halos.txt"
 filename3 = "radii.txt"
 filename4 = "listofradii.txt"
@@ -333,14 +322,12 @@ for c in densitystring:
 data.close()
 
 
-
 data = open(filename6,"w")
 
 for c in parents:
 	data.write("%s\n" % c)
 	
 data.close()
-
 
 
 data = open(filename7,"w")
@@ -351,8 +338,6 @@ for c in dmhalomasses:
 data.close()
 
 
-
-
 data = open(filename8,"w")
 
 for c in progenitors:
@@ -360,10 +345,6 @@ for c in progenitors:
 	
 data.close()
 
-print "printing dmhalomass, and progenitor"
-print progenitors
-print dmhalomasses
-print parents
 
 data = open(filename9,"w")
 
@@ -371,18 +352,12 @@ data = open(filename9,"w")
 #	data.write("%s\n" % c)
 	
 #data.close()
-
-
-
-
 data = open(filename10,"w")
 
 for c in halo_id :
 	data.write("%s\n" % c)
 	
 data.close()
-
-
 	
 
 data = open(filename11,"w")
@@ -392,8 +367,6 @@ for c in redshift_string :
 	
 data.close()
 
-
-
 data = open(filename13,"w")
 
 for c in halo_dm_string :
@@ -401,18 +374,12 @@ for c in halo_dm_string :
 	
 data.close()
 
-
-
 data = open(filename16,"w")
 
 for c in dark_mass_percent :
 	data.write("%s\n" % c)
 	
 data.close()
-
-
-
-
 
 data = open(filename15,"w")
 
