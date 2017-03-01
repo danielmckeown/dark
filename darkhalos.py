@@ -45,16 +45,11 @@ i = names.index('Illustris-2')
  
 sim = get( r['simulations'][i]['url'] )
  
-print sim['num_dm']
  
 # Get snapshot listing
 sim['snapshots']
 
 snaps = get( sim['snapshots'] )
-
-print len(snaps)
-
-print snaps[-1]
 
 #### Get full meta data
 
@@ -83,7 +78,6 @@ subs = get( snap['subhalos'], {'limit':750, 'order_by':'-mass_dm'} )
 
 c =  [ subs['results'][i]['id'] for i in range(750) ]
 
-print c
 def running_sum(a):
   tot = 0
   for item in a:
@@ -95,7 +89,6 @@ params = {'dm':'Coordinates,SubfindDensity'}
 url_parents = ([])
 
 #c = [1]
-print len(c)
 n = 0
 
 while n < len(c):
@@ -105,7 +98,7 @@ while n < len(c):
 	id = c[n]
 
 	
-	print id
+	
 	url = "http://www.illustris-project.org/api/Illustris-2/snapshots/135/subhalos/" + str(id)
 	
 	
@@ -166,16 +159,16 @@ while n < len(c):
 		darkmattermass_density = ([])
 		radial_distance2 = ([])
 		coun = 0
-		iter = len(rrr2) / (2000)
-		remainder = len(rrr2) % (2000)
+		iter = len(rrr2) / (1300)
+		remainder = len(rrr2) % (1300)
 		dark_matters = ([])
 		outer_radius2 = ([])
 		while coun < iter:
-			top5 = rrr2[:2000]
-			outer_radius2.insert(coun,top5[1999])
+			top5 = rrr2[:1300]
+			outer_radius2.insert(coun,top5[1299])
 			totaldm_mass = len(top5) * 0.0035271
 			dark_matters.insert(coun,totaldm_mass)
-			del rrr2[:2000]
+			del rrr2[:1300]
 			coun = coun + 1	
 		outer_radius2.insert(0,0)
 		
