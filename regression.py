@@ -36,15 +36,8 @@ parenthalo = open('parenthalos.txt','r')
 for y in parenthalo.read().split('\n'):
 	if y.isdigit():
 		parenthalos.append(int(y))
-print "printing parent halos"
-print parenthalos
-
-
 
 #### Mass percent file
-
-
-
 dark_mass_percent = open('dark_mass_percent.txt')
 
 dark_masses =  [elem.strip().split(';') for elem in dark_mass_percent]
@@ -52,9 +45,6 @@ dark_masses =  [elem.strip().split(';') for elem in dark_mass_percent]
 dark_masser = list(dark_masses)
 dark_masse = [val for sublist in dark_masser for val in sublist]
 dark_mass_percent = [float(i) for i in dark_masse]
-print "printing dark_mass_percent"
-print dark_mass_percent
-
 
 ###### DM MASS FILE
 
@@ -65,15 +55,8 @@ dm_masses =  [elem.strip().split(';') for elem in dm_mass]
 dm_masser = list(dm_masses)
 dm_masse = [val for sublist in dm_masser for val in sublist]
 dm_mass = [float(i) for i in dm_masse]
-print "printing dm_mass"
-print dm_mass
-
-
-
 
 #### PROGENITOR FILE
-
-
 progenitor = []
 progs = open('progenitor.txt','r')
 for y in progs.read().split('\n'):
@@ -82,12 +65,7 @@ for y in progs.read().split('\n'):
 print "printing progenitor"
 print progenitor
 
-
-
 #### Redshift File
-
-
-
 red = open( "redshift.txt")
 
 reds =  [elem.strip().split(';') for elem in red]
@@ -95,29 +73,18 @@ reds =  [elem.strip().split(';') for elem in red]
 redder = list(reds)
 redd = [val for sublist in redder for val in sublist]
 redshift = [float(i) for i in redd]
-print "now printing redshift"
-print redshift
-
-
-
 
 ##### Halo File
-
-
-
 halo_id = []
 halos = open('halo_id.txt','r')
 for y in halos.read().split('\n'):
 	if y.isdigit():
 		halo_id.append(int(y))
-print "printing halo id"
-print halo_id
 
 g = len(r111)
 
 #flattened = [val for sublist in list_of_lists for val in sublist]
 # HEre  I use a list comprehension
-
 
 y11 =[val for sublist in y111 for val in sublist]
 
@@ -125,10 +92,6 @@ r11 = [val for sublist in r111 for val in sublist]
 
 list_dm = [val for sublist in listdm for val in sublist]
 pdf_pages = PdfPages('DMHalos131.pdf')
-
-
-
-
 
 nm = 0
  
@@ -196,12 +159,10 @@ while nm < g:
 
 #### NON LINEAR REGRESSION PORTION OF THE PROGRAM
 
-
-
 	def line(r, a, r0 , n):
 		#r00 = (r/(r0*1000))**2
 	    
-	
+
 		return a * r**-n * (1.0 + r/r0)**(-3.0 + n)
 		#return a*np.exp(-(r/r0)**n)
 
@@ -211,11 +172,11 @@ while nm < g:
 	from scipy.stats import chisquare
 
 	perr = np.sqrt(np.diag(pcov))
-	print " standard deviation of the error is"
+	
 	chi_squared = chisquare(y3)
 	chi_squared = chi_squared[0]
-	print chi_squared
-	print "chisquare =", chisquare(y3)	
+	
+		
 	    
   # Plot whatever you wish to plot
  
@@ -259,8 +220,7 @@ while nm < g:
 
 
 ########  Create data table 
-print "now printing data frame"
-print df
+
 import pandas as pd
 import numpy as np
 import matplotlib.pyplot as plt
@@ -317,8 +277,6 @@ print df
 
 list_of_darkhalos = map(list, df.values)
 
-print list_of_darkhalos 
-
 
 for x in list_of_darkhalos:
 	
@@ -335,12 +293,4 @@ conn.commit()
 # We can also close the connection if we are done with it.
 # Just be sure any changes have been committed or they will be lost.
 conn.close()
-
-
-
-
-
-
-
-
 
