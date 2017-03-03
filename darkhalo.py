@@ -77,12 +77,12 @@ parents = ([])
 dmhalomasses = ([])
 progenitors = ([])
 dark_mass_percent = ([])
-subs = get( snap['subhalos'], {'limit':400} )
+subs = get( snap['subhalos'], {'limit':200} )
 
 #####  HERE WE SET THE NUMBER OF HALOS COUNTED
-subs = get( snap['subhalos'], {'limit':400, 'order_by':'-mass_dm'} )
+subs = get( snap['subhalos'], {'limit':200, 'order_by':'-mass_dm'} )
 
-c =  [ subs['results'][i]['id'] for i in range(400) ]
+c =  [ subs['results'][i]['id'] for i in range(200) ]
 
 print c
 def running_sum(a):
