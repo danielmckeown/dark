@@ -75,8 +75,8 @@ print len(snaps)
 
 #### Get full meta data
 
-snapnum = 58
-redshift = 	3.28303305795652
+snapnum = 134
+redshift = 0.00952166696794476		
 scale_factor = 1.0 / (1+redshift) 
 little_h = 0.704    
 
@@ -122,7 +122,7 @@ while n < len(c):
 
 	
 	print id
-	url = "http://www.illustris-project.org/api/Illustris-2/snapshots/58/subhalos/" + str(id)
+	url = "http://www.illustris-project.org/api/Illustris-2/snapshots/134/subhalos/" + str(id)
 	print url
 	
 	sub = get(url) # get json response of subhalo properties
@@ -225,7 +225,7 @@ while n < len(c):
 	g = len(y1)
 	r1 = outer_radius2[:g]
 	unofficial = len(y1) * 13 *  0.0035271
-	snapnum = 135
+
 	
 	filename = "darkmatterdensityhalo" + str(snapnum) + "redshift" + str(id) + ".txt"
 	filename1 = "darkmatterradii"  + str(snapnum) + "redshift" + str(id) + ".txt"
