@@ -215,9 +215,9 @@ while n < len(c):
 	filename15 = "totaldarkmatter.txt"
 	def format(value):
 		return "%.18f" % value
-	del y1[0]
+	#del y1[0]
 	y2 = [format(x) for x in y1]
-	del r1[0]
+	#del r1[0]
 	
 	def formats(values):
 		return "%.8f" % values	
