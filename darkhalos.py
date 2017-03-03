@@ -178,7 +178,8 @@ while n < len(c):
 		while m < iter :
 			if remainder > 0 :
 				volume2 = (4.0/3.0)*3.14*((outer_radius2[m + 1])**3) - (4.0/3.0)*3.14*((outer_radius2[m])**3)
-				
+			elif remainder == 0:
+				volume2 = (4.0/3.0)*3.14*((outer_radius2[m + 1])**3) - (4.0/3.0)*3.14*((outer_radius2[m])**3)
 			density = (dark_matters[m]) / (volume2)
 			dark_mass_density.insert(m,density)
 			m = m + 1
