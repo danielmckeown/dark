@@ -223,7 +223,7 @@ while n < len(c):
 	g = len(y1)
 	r1 = outer_radius2[:g]
 	unofficial = len(y1) * 13 *  0.0035271
-	snapnum = 135
+	
 	
 	filename = "darkmatterdensityhalo" + str(snapnum) + "redshift" + str(id) + ".txt"
 	filename1 = "darkmatterradii"  + str(snapnum) + "redshift" + str(id) + ".txt"
