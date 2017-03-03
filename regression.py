@@ -8,7 +8,7 @@ import pandas as pd
 import sqlite3
 import csv
 # Create Python Data Frame to store data for publication
-
+redshift = 2.2204460492503099e-16	
 
 #Now, for each new page we want to create, we have to create a new Figure instance
 df = pd.DataFrame(columns=('number','id','n', 'nerror', 'a','aerror','r0','r0error','dm halo mass 10^10 Msolar','progenitor','parenthalo','redshift','chi_squared','dark_mass_percent'))
@@ -75,18 +75,6 @@ for y in progs.read().split('\n'):
 		progenitor.append(int(y))
 
 
-
-#### Redshift File
-
-
-
-red = open( "redshift.txt")
-
-reds =  [elem.strip().split(';') for elem in red]
-
-redder = list(reds)
-redd = [val for sublist in redder for val in sublist]
-redshift = [float(i) for i in redd]
 
 ##### Halo File
 
@@ -204,7 +192,7 @@ while nm < g:
 
 # Here the data is inserted into the data frame,halo_id[nm],dm_mass[nm],redshift[nm],descendants[nm],progenitor[nm],parenthalos[nm]]
 
-	df.loc[nm] = [nm,halo_id[nm], popt[2] ,pcov[2,2]**0.5,popt[0],pcov[0,0]**0.5,popt[1],pcov[1,1]**0.5,dm_mass[nm],progenitor[nm],parenthalos[nm],redshift[nm],chi_squared,dark_mass_percent[nm]]
+	df.loc[nm] = [nm,halo_id[nm], popt[2] ,pcov[2,2]**0.5,popt[0],pcov[0,0]**0.5,popt[1],pcov[1,1]**0.5,dm_mass[nm],progenitor[nm],parenthalos[nm],redshift,chi_squared,dark_mass_percent[nm]]
 	#df = df.round({'n': 7, 'nerror': 5, 'a':5 ,'aerror':5,'r0':5,'r0error':5,'dm halo mass':6,'progenitor':1,'parent':1,'redshift':5,'chi_square':4,'mass_percent':4})
 
 	
@@ -227,7 +215,7 @@ while nm < g:
 	ax2.plot(r3,total_dm_mass, 'r.')
 	ax2.set_ylabel('Dark Matter Mass 10^10 Msolar', color='r')
 	ax2.tick_params('y', colors='r')	
-	plt.title('Dark Matter Density of halo %s at Redshift  %s'%(halo_id[nm],redshift[nm]))
+	plt.title('Dark Matter Density of halo %s at Redshift  %s'%(halo_id[nm],redshift))
 
 	
 	
