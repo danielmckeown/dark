@@ -185,16 +185,16 @@ while n < len(c):
 		darkmattermass_density = ([])
 		radial_distance2 = ([])
 		coun = 0
-		iter = len(rrr2) / (229)
-		remainder = len(rrr2) % (229)
+		iter = len(rrr2) / (1800)
+		remainder = len(rrr2) % (1800)
 		dark_matters = ([])
 		outer_radius2 = ([])
 		while coun < iter:
-			top5 = rrr2[:229]
-			outer_radius2.insert(coun,top5[228])
+			top5 = rrr2[:1800]
+			outer_radius2.insert(coun,top5[1799])
 			totaldm_mass = len(top5) * 0.0035271
 			dark_matters.insert(coun,totaldm_mass)
-			del rrr2[:229]
+			del rrr2[:1800]
 			coun = coun + 1	
 		outer_radius2.insert(0,0)
 		
