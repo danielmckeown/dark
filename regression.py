@@ -52,8 +52,6 @@ dark_masses =  [elem.strip().split(';') for elem in dark_mass_percent]
 dark_masser = list(dark_masses)
 dark_masse = [val for sublist in dark_masser for val in sublist]
 dark_mass_percent = [float(i) for i in dark_masse]
-print "printing dark_mass_percent"
-print dark_mass_percent
 
 
 ###### DM MASS FILE
@@ -65,8 +63,7 @@ dm_masses =  [elem.strip().split(';') for elem in dm_mass]
 dm_masser = list(dm_masses)
 dm_masse = [val for sublist in dm_masser for val in sublist]
 dm_mass = [float(i) for i in dm_masse]
-print "printing dm_mass"
-print dm_mass
+
 
 
 
@@ -79,8 +76,6 @@ progs = open('progenitor.txt','r')
 for y in progs.read().split('\n'):
 	if y.isdigit():
 		progenitor.append(int(y))
-print "printing progenitor"
-print progenitor
 
 
 
@@ -95,9 +90,6 @@ reds =  [elem.strip().split(';') for elem in red]
 redder = list(reds)
 redd = [val for sublist in redder for val in sublist]
 redshift = [float(i) for i in redd]
-print "now printing redshift"
-print redshift
-
 
 
 
@@ -110,8 +102,6 @@ halos = open('halo_id.txt','r')
 for y in halos.read().split('\n'):
 	if y.isdigit():
 		halo_id.append(int(y))
-print "printing halo id"
-print halo_id
 
 g = len(r111)
 
@@ -211,11 +201,10 @@ while nm < g:
 	from scipy.stats import chisquare
 
 	perr = np.sqrt(np.diag(pcov))
-	print " standard deviation of the error is"
+	
 	chi_squared = chisquare(y3)
 	chi_squared = chi_squared[0]
-	print chi_squared
-	print "chisquare =", chisquare(y3)	
+		
 	    
   # Plot whatever you wish to plot
  
@@ -256,46 +245,6 @@ while nm < g:
 	pdf_pages.savefig(fig)	
 	nm = nm + 1
 
-
-
-########  Create data table 
-print "now printing data frame"
-print df
-import pandas as pd
-import numpy as np
-import matplotlib.pyplot as plt
-from matplotlib.externals import six
-
-
-
-def render_mpl_table(data, col_width=0.70, row_height=0.225, font_size=12,
-                     header_color='#40466e', row_colors=['#f1f1f2', 'w'], edge_color='w',
-                     bbox=[0, 0, 1, 1], header_columns=0,
-                     ax=None, **kwargs):
-    if ax is None:
-        size = (np.array(data.shape[::-1]) + np.array([0, 1])) * np.array([col_width, row_height])
-        fig, ax = plt.subplots(figsize=size)
-        ax.axis('off')
-
-    mpl_table = ax.table(cellText=data.values, bbox=bbox, colLabels=data.columns, **kwargs)
-
-    mpl_table.auto_set_font_size(False)
-    mpl_table.set_fontsize(font_size)
-
-    for k, cell in six.iteritems(mpl_table._cells):
-        cell.set_edgecolor(edge_color)
-        if k[0] == 0 or k[1] < header_columns:
-            cell.set_text_props(weight='bold', color='w')
-            cell.set_facecolor(header_color)
-        else:
-            cell.set_facecolor(row_colors[k[0]%len(row_colors) ])
-    return ax
-
-
-render_mpl_table(df, header_columns=0, col_width=2.0)
-
-plt.savefig('DMHaloinfo135.png')
-
 ####### End of data table created. Now close pdf pages.
 
 pdf_pages.close()
@@ -312,12 +261,12 @@ c.execute('''CREATE TABLE D1Halo135
              (number int PRIMARY KEY, id int , n float, ner float, a float, aer float, r0 float, r0er float,dm_mass float, progenitor int, parent int,redshift float,chi_squared float, dm_mass_percent float)''')
 
 
-print df
+
 
 
 list_of_darkhalos = map(list, df.values)
 
-print list_of_darkhalos 
+
 
 
 for x in list_of_darkhalos:
