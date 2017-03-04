@@ -77,7 +77,7 @@ parents = ([])
 dmhalomasses = ([])
 progenitors = ([])
 dark_mass_percent = ([])
-#subs = get( snap['subhalos'], {'limit':1} )
+subs = get( snap['subhalos'], {'limit':500} )
 snap = 135
 #####  HERE WE SET THE NUMBER OF HALOS COUNTED
 subs = get( snap['subhalos'], {'limit':500, 'order_by':'-mass_dm'} )
