@@ -187,6 +187,9 @@ while n < len(c):
 		coun = 0
 		iter = len(rrr2) / (3)
 		remainder = len(rrr2) % (3)
+		print "printing remainder"
+		print remainder
+		
 		dark_matters = ([])
 		outer_radius2 = ([])
 		while coun < iter:
@@ -197,6 +200,7 @@ while n < len(c):
 			del rrr2[:3]
 			coun = coun + 1	
 		outer_radius2.insert(0,0)
+		print outer_radius2
 		
 		
 		m = 0
@@ -245,6 +249,7 @@ while n < len(c):
 	del y1[0]
 	y2 = [format(x) for x in y1]
 	del r1[0]
+	print, y1, r1
 	
 	def formats(values):
 		return "%.8f" % values	
