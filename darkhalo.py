@@ -51,7 +51,7 @@ print sim['num_dm']
 # Get snapshot listing
 sim['snapshots']
 
-snaps = get( sim['snapshots'] )
+#snaps = get( sim['snapshots'] )
 
 print len(snaps)
 
@@ -59,7 +59,7 @@ print snaps[-1]
 
 #### Get full meta data
 
-snap = get( snaps[-1]['url'] )
+#snap = get( snaps[-1]['url'] )
 redshift = 	2.2204460492503099e-16
 
 scale_factor = 1.0 / (1+redshift) 
@@ -77,12 +77,12 @@ parents = ([])
 dmhalomasses = ([])
 progenitors = ([])
 dark_mass_percent = ([])
-subs = get( snap['subhalos'], {'limit':1} )
+#subs = get( snap['subhalos'], {'limit':1} )
 snap = 135
 #####  HERE WE SET THE NUMBER OF HALOS COUNTED
-subs = get( snap['subhalos'], {'limit':1, 'order_by':'-mass_dm'} )
+subs = get( snap['subhalos'], {'limit':500, 'order_by':'-mass_dm'} )
 
-c =  [ subs['results'][i]['id'] for i in range(1) ]
+c =  [ subs['results'][i]['id'] for i in range(500) ]
 
 print c
 def running_sum(a):
