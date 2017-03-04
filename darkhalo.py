@@ -1,5 +1,6 @@
 
 
+
 ###  Here I just do some basic initializations 
 
 from scipy.stats import gaussian_kde
@@ -77,12 +78,12 @@ parents = ([])
 dmhalomasses = ([])
 progenitors = ([])
 dark_mass_percent = ([])
-subs = get( snap['subhalos'], {'limit':1} )
+subs = get( snap['subhalos'], {'limit':1000} )
 
 #####  HERE WE SET THE NUMBER OF HALOS COUNTED
-subs = get( snap['subhalos'], {'limit':1, 'order_by':'-mass_dm'} )
+subs = get( snap['subhalos'], {'limit':1000, 'order_by':'-mass_dm'} )
 
-c =  [ subs['results'][i]['id'] for i in range(1) ]
+c =  [ subs['results'][i]['id'] for i in range(1000) ]
 
 print c
 def running_sum(a):
@@ -154,7 +155,6 @@ while n < len(c):
 	     # request the full subhalo details of the descendant by following the sublink URL
 	
 	
-	
 	with h5py.File(saved_filename) as f:
 	
 		dx = f['PartType1']['Coordinates'][:,0] - sub['pos_x']
@@ -163,14 +163,13 @@ while n < len(c):
 		
 		rr2 = np.sqrt(dx**2 + dy**2 + dz**2)
 		rr2 *= scale_factor/little_h # ckpc/h -> physical kpc
-		
+		print len(rr2)
 		rrr2 = sorted(rr2)
 		darkmattermass_density = ([])
 		radial_distance2 = ([])
 		coun = 0
 		iter = len(rrr2) / (1000)
 		remainder = len(rrr2) % (1000)
-		print remainder
 		dark_matters = ([])
 		outer_radius2 = ([])
 		while coun < iter:
@@ -181,7 +180,6 @@ while n < len(c):
 			del rrr2[:1000]
 			coun = coun + 1	
 		outer_radius2.insert(0,0)
-		print outer_radius2
 		
 		
 		m = 0
@@ -197,20 +195,20 @@ while n < len(c):
 		outer_radius2.pop(0)
 		
 		
-		
+		print density
 	for x in dark_mass_density:
 		if x > P_200:
 			dm_density.append(x)
 			
+	print "printing Hsquared"
 	
-	snapnum = snap
 	total_dm_mass = list(running_sum(dark_matters))
 	del total_dm_mass[0]
 	y1 =  dm_density 
 	g = len(y1)
 	r1 = outer_radius2[:g]
 	unofficial = len(y1) * 13 *  0.0035271
-	
+	snapnum = 135
 	
 	filename = "darkmatterdensityhalo" + str(snapnum) + "redshift" + str(id) + ".txt"
 	filename1 = "darkmatterradii"  + str(snapnum) + "redshift" + str(id) + ".txt"
