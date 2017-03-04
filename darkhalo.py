@@ -51,15 +51,15 @@ print sim['num_dm']
 # Get snapshot listing
 sim['snapshots']
 
-#snaps = get( sim['snapshots'] )
+snaps = get( sim['snapshots'] )
 
-#print len(snaps)
+print len(snaps)
 
-#print snaps[-1]
+print snaps[-1]
 
 #### Get full meta data
 
-#snap = get( snaps[-1]['url'] )
+snap = get( snaps[-1]['url'] )
 redshift = 	2.2204460492503099e-16
 
 scale_factor = 1.0 / (1+redshift) 
@@ -77,13 +77,12 @@ parents = ([])
 dmhalomasses = ([])
 progenitors = ([])
 dark_mass_percent = ([])
-snap = 135
-subs = get( snap['subhalos'], {'limit':500} )
+subs = get( snap['subhalos'], {'limit':1} )
 
 #####  HERE WE SET THE NUMBER OF HALOS COUNTED
-subs = get( snap['subhalos'], {'limit':500, 'order_by':'-mass_dm'} )
+subs = get( snap['subhalos'], {'limit':1, 'order_by':'-mass_dm'} )
 
-c =  [ subs['results'][i]['id'] for i in range(500) ]
+c =  [ subs['results'][i]['id'] for i in range(1) ]
 
 print c
 def running_sum(a):
@@ -107,7 +106,7 @@ while n < len(c):
 	id = c[n]
 
 	
-	
+	print id
 	url = "http://www.illustris-project.org/api/Illustris-2/snapshots/135/subhalos/" + str(id)
 	print url
 	
@@ -116,10 +115,10 @@ while n < len(c):
 	dmhalomass = sub['mass_dm']
 	total_mass = sub['mass']
 	mass_to_light = dmhalomass / total_mass
-	
+	print mass_to_light
 	parent = sub['parent']	
 	progenitor = sub['prog_sfid']	
-	
+	print progenitor
 	parents.insert(n,parent)
 	progenitors.insert(n,progenitor)
 	dmhalomasses.insert(n,dmhalomass)
@@ -140,7 +139,7 @@ while n < len(c):
 	pi = 3.14159265359
 	P_critical = 3 * H_squared / (8 * pi * G)
 	P_200 = P_critical * 200
-	
+	print P_200
 	# prepare dict to hold result arrays
 	fields = ['snap','id','mass_gas','mass','mass_dm','mass_bhs']
 	radialstarmass_density =([])
@@ -153,6 +152,7 @@ while n < len(c):
 	
 		    
 	     # request the full subhalo details of the descendant by following the sublink URL
+	
 	
 	
 	with h5py.File(saved_filename) as f:
