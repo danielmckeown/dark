@@ -78,7 +78,7 @@ dmhalomasses = ([])
 progenitors = ([])
 dark_mass_percent = ([])
 subs = get( snap['subhalos'], {'limit':1} )
-
+snap = 135
 #####  HERE WE SET THE NUMBER OF HALOS COUNTED
 subs = get( snap['subhalos'], {'limit':1, 'order_by':'-mass_dm'} )
 
@@ -106,7 +106,7 @@ while n < len(c):
 	id = c[n]
 
 	
-	print id
+	
 	url = "http://www.illustris-project.org/api/Illustris-2/snapshots/135/subhalos/" + str(id)
 	print url
 	
@@ -115,10 +115,10 @@ while n < len(c):
 	dmhalomass = sub['mass_dm']
 	total_mass = sub['mass']
 	mass_to_light = dmhalomass / total_mass
-	print mass_to_light
+	
 	parent = sub['parent']	
 	progenitor = sub['prog_sfid']	
-	print progenitor
+	
 	parents.insert(n,parent)
 	progenitors.insert(n,progenitor)
 	dmhalomasses.insert(n,dmhalomass)
@@ -139,7 +139,7 @@ while n < len(c):
 	pi = 3.14159265359
 	P_critical = 3 * H_squared / (8 * pi * G)
 	P_200 = P_critical * 200
-	print P_200
+	
 	# prepare dict to hold result arrays
 	fields = ['snap','id','mass_gas','mass','mass_dm','mass_bhs']
 	radialstarmass_density =([])
@@ -162,23 +162,25 @@ while n < len(c):
 		
 		rr2 = np.sqrt(dx**2 + dy**2 + dz**2)
 		rr2 *= scale_factor/little_h # ckpc/h -> physical kpc
-		print len(rr2)
+		
 		rrr2 = sorted(rr2)
 		darkmattermass_density = ([])
 		radial_distance2 = ([])
 		coun = 0
-		iter = len(rrr2) / (2000)
-		remainder = len(rrr2) % (2000)
+		iter = len(rrr2) / (1000)
+		remainder = len(rrr2) % (1000)
+		print remainder
 		dark_matters = ([])
 		outer_radius2 = ([])
 		while coun < iter:
-			top5 = rrr2[:2000]
-			outer_radius2.insert(coun,top5[1999])
+			top5 = rrr2[:1000]
+			outer_radius2.insert(coun,top5[999])
 			totaldm_mass = len(top5) * 0.0035271
 			dark_matters.insert(coun,totaldm_mass)
-			del rrr2[:2000]
+			del rrr2[:1000]
 			coun = coun + 1	
 		outer_radius2.insert(0,0)
+		print outer_radius
 		
 		
 		m = 0
@@ -194,12 +196,12 @@ while n < len(c):
 		outer_radius2.pop(0)
 		
 		
-		print density
+		
 	for x in dark_mass_density:
 		if x > P_200:
 			dm_density.append(x)
 			
-	print "printing Hsquared"
+	
 	
 	total_dm_mass = list(running_sum(dark_matters))
 	del total_dm_mass[0]
@@ -207,7 +209,7 @@ while n < len(c):
 	g = len(y1)
 	r1 = outer_radius2[:g]
 	unofficial = len(y1) * 13 *  0.0035271
-	snapnum = 135
+	
 	
 	filename = "darkmatterdensityhalo" + str(snapnum) + "redshift" + str(id) + ".txt"
 	filename1 = "darkmatterradii"  + str(snapnum) + "redshift" + str(id) + ".txt"
