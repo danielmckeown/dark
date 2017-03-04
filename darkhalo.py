@@ -181,7 +181,7 @@ while n < len(c):
 			del rrr2[:1000]
 			coun = coun + 1	
 		outer_radius2.insert(0,0)
-		print outer_radius
+		print outer_radius2
 		
 		
 		m = 0
