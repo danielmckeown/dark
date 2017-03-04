@@ -203,7 +203,7 @@ while n < len(c):
 			dm_density.append(x)
 			
 	
-	
+	snapnum = snap
 	total_dm_mass = list(running_sum(dark_matters))
 	del total_dm_mass[0]
 	y1 =  dm_density 
