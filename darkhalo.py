@@ -53,9 +53,9 @@ sim['snapshots']
 
 #snaps = get( sim['snapshots'] )
 
-print len(snaps)
+#print len(snaps)
 
-print snaps[-1]
+#print snaps[-1]
 
 #### Get full meta data
 
